@@ -9,7 +9,7 @@
    */
   class System {
     /** @var Router The router instance */
-    private Router $router;
+    public Router $router;
 
     /**
      * Constructor
@@ -26,20 +26,24 @@
      * @todo Connect to database, initialize session, etc.
      */
     private function init(): void {
-      // @Todo:
-      //   - Connect DB
-      //   - Session
-
       $this->router = new Router($this);
     }
 
     /**
-     * Run the system
+     * Runs the system lifecycle
      *
-     * Dispatches the router to load the requested page.
+     * Dispatches the router and initializes the API
+     * handler when the current page is an API request.
      */
     public function run(): void {
-      $this->router->dispatch();
+      // Handle API requests separately
+      if ($this->router->currentPage === 'api') {
+        new API($this);
+      }
+      // Resolve and dispatch the current route
+      else {
+        $this->router->dispatch();
+      }
     }
   }
 ?>

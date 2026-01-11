@@ -44,8 +44,8 @@ Entry point: `index.php`
 
 ## Navigation
 Pages are loaded dynamically using: `$_GET['page']`
-> - Default page: `externalHome`
-> - Example: `index.php?page=about` → loads `layouts/pages/about.php`
+> - Default page: `home`
+> - Example: `index.php?page=home` → loads `layouts/pages/home.php`
 
 ## Custom Exceptions
 - `ApplicationException` – general runtime error

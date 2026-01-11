@@ -12,10 +12,10 @@
     private System $system;
 
     /** @var string Default page to load if none is specified */
-    private string $defaultPage = 'externalHome';
+    private string $defaultPage = 'home';
     
     /** @var string Current page being loaded */
-    private string $currentPage = '';
+    public string $currentPage = '';
 
     /**
      * Constructor
@@ -24,6 +24,9 @@
      */
     public function __construct(System $system) {
       $this->system = $system;
+      
+      $pageName = $this->getPageName();
+      $this->currentPage = $pageName;
     }
 
     /**
@@ -32,10 +35,7 @@
      * Loads header, requested page, and footer. Handles exceptions if page is missing.
      */
     public function dispatch(): void {
-      $pageName = $this->getPageName();
-      $pageFile = PAGES_PATH . $pageName . '.php';
-
-      $this->currentPage = $pageName;
+      $pageFile = PAGES_PATH . $this->currentPage . '.php';
 
       try {
         $this->loadHeader();
@@ -75,6 +75,9 @@
       if (!file_exists($file)) {
         throw new ApplicationException('Header fájl nem található: ' . $file);
       }
+      
+      // Makes the $system variable available in the given php file... (it would be nice to make everything available from the system)
+      $system = $this->system;
       require_once $file;
     }
 
@@ -88,6 +91,9 @@
       if (!file_exists($file)) {
         throw new PageNotFoundException("Page fájl nem található: $file");
       }
+      
+      // Makes the $system variable available in the given php file... (it would be nice to make everything available from the system)
+      $system = $this->system;
       require_once $file;
     }
 
@@ -101,6 +107,9 @@
       if (!file_exists($file)) {
         throw new ApplicationException('Footer fájl nem található: ' . $file);
       }
+      
+      // Makes the $system variable available in the given php file... (it would be nice to make everything available from the system)
+      $system = $this->system;
       require_once $file;
     }
 
