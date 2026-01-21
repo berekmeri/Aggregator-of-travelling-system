@@ -1,0 +1,14 @@
+# IDE / Editor files
+/.vscode/
+/.idea/
+/*.sublime-project
+/*.sublime-workspace
+
+# Logs and cache
+/logs/
+/tmp/
+/cache/
+/*.log
+
+# Session files
+/sessions/
